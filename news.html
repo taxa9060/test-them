@@ -116,24 +116,7 @@
       background: #d0d0d0;
     }
 
-    /* دکمه نمایش بیشتر */
-    .load-more {
-      text-align: center;
-      margin-top: 20px;
-    }
-    .btn-load {
-      background: #007aff;
-      color: #fff;
-      border: none;
-      border-radius: 14px;
-      padding: 10px 20px;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: background 0.2s ease;
-    }
-    .btn-load:hover {
-      background: #005bb5;
-    }
+
     /* دکمه بازگشت */
 .back-btn {
   display: inline-flex;
@@ -163,7 +146,21 @@
   </style>
 </head>
 <body>
+<!-- اضافه کردن w3.js -->
+<script src="https://www.w3schools.com/lib/w3.js"></script>
 
+<!-- اضافه کردن هدر -->
+<div w3-include-html="parts/header.html"></div>
+
+<!-- اجرای includeHTML و سپس بارگذاری فایل JS -->
+<script>
+  w3.includeHTML(() => {
+    const script = document.createElement('script');
+    script.src = 'assets/js/menu.js'; // مسیر صحیح فایل
+    document.body.appendChild(script);
+  });
+</script>
+  
   <div class="news-container">
     <div class="news-header">
       <div class="news-header">
