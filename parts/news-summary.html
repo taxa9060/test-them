@@ -9,90 +9,47 @@
 <!-- فقط یک container -->
 <div class="container">
 
-  <!-- کارت‌های خبری -->
-  <div class="app">
-    <div class="app-info">
-      <img src="assets/images/news/image-card1.png" alt="تصویر 1">
-      <div class="app-text">
-        <div class="app-title">خبر یک</div>
-        <div class="app-subtitle">توضیح خبر یک</div>
-      </div>
-    </div>
-    <div class="app-actions">
-      <div class="app-date">۳ اردیبهشت ۱۴۰۴</div>
-      <a href="cards/index-card2.html">
-        <button class="button">جزئیات</button>
-      </a>
+    <!-- کارت‌های اولیه توسط JS پر می‌شوند -->
+    <div id="summary-news-list"></div>
+
+    <div class="more-button-wrapper">
+      <a href="news.html" class="button">مشاهده بیشتر</a>
     </div>
   </div>
 
-  <div class="app">
-    <div class="app-info">
-      <img src="assets/images/news/image-card1.png" alt="تصویر 2"> 
-      <div class="app-text">
-        <div class="app-title">خبر دو</div>
-        <div class="app-subtitle">توضیح خبر دو</div>
-      </div>
-    </div>
-    <div class="app-actions">
-      <div class="app-date">۳ اردیبهشت ۱۴۰۴</div>
-      <a href="cards/index-card2.html">
-        <button class="button">جزئیات</button>
-      </a>
-    </div>
-  </div>
+  <script>
+    // بارگذاری JSON خبرها و نمایش ۵ مورد اول
+    fetch('../pages/news/news-list.json')
+      .then(res => res.json())
+      .then(list => {
+        const container = document.getElementById('summary-news-list');
+        list.slice(0,5).forEach(item => {
+          const div = document.createElement('div');
+          div.className = 'app';
+          div.innerHTML = `
+            <div class="app-info">
+              <img src="${item.thumb}" alt="${item.title}">
+              <div class="app-text">
+                <div class="app-title">${item.title}</div>
+                <div class="app-subtitle">${item.summary}</div>
+              </div>
+            </div>
+            <div class="app-actions">
+              <div class="app-date">${toPersianDate(item.date)}</div>
+              <a href="../pages/news/${item.file}" class="button">جزئیات</a>
+            </div>
+          `;
+          container.appendChild(div);
+        });
+      });
 
-  <div class="app">
-    <div class="app-info">
-      <img src="assets/images/news/image-card1.png" alt="تصویر 3">
-      <div class="app-text">
-        <div class="app-title">خبر سوم</div>
-        <div class="app-subtitle">توضیح خبر سوم</div>
-      </div>
-    </div>
-    <div class="app-actions">
-      <div class="app-date">۳ اردیبهشت ۱۴۰۴</div>
-      <a href="cards/index-card2.html">
-        <button class="button">جزئیات</button>
-      </a>
-    </div>
-  </div>
+    // همان تابع تبدیل تاریخ
+    function toPersianDate(iso) {
+      const [y,m,d] = iso.split('-');
+      const months = ['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
+      return `${+d} ${months[+m-1]} ${+y}`;
+    }
+  </script>
 
-  <div class="app">
-    <div class="app-info">
-      <img src="assets/images/news/image-card1.png" alt="تصویر 4">
-      <div class="app-text">
-        <div class="app-title">خبر چهار</div>
-        <div class="app-subtitle">توضیح خبر چهار</div>
-      </div>
-    </div>
-    <div class="app-actions">
-      <div class="app-date">۳ اردیبهشت ۱۴۰۴</div>
-      <a href="cards/index-card2.html">
-        <button class="button">جزئیات</button>
-      </a>
-    </div>
-  </div>
-
-  <div class="app">
-    <div class="app-info">
-      <img src="assets/images/news/image-card1.png" alt="تصویر 5">
-      <div class="app-text">
-        <div class="app-title">خبر پنج</div>
-        <div class="app-subtitle">توضیح خبر پنج</div>
-      </div>
-    </div>
-    <div class="app-actions">
-      <div class="app-date">۳ اردیبهشت ۱۴۰۴</div>
-      <a href="cards/index-card2.html">
-        <button class="button">جزئیات</button>
-      </a>
-    </div>
-  </div>
-
-  <!-- دکمه مشاهده بیشتر در مکان درست -->
-  <div class="more-button-wrapper">
-    <a href="parts/news.html" class="button">مشاهده بیشتر</a>
-  </div>
-
-</div>
+</body>
+</html>
