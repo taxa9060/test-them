@@ -4,7 +4,79 @@
   <meta charset="UTF-8">
   <title>مروری بر اخبار</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../style.css">
+  <style>
+    .container {
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+  width: 100%;
+  max-width: 360px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+}
+
+.app {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+}
+
+.app + .app {
+  border-top: 1px solid #eee;
+}
+
+.app-info {
+  display: flex;
+  align-items: center;
+}
+
+.app img {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  margin-left: 10px;
+}
+
+.app-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.app-title {
+  font-weight: bold;
+}
+
+.app-subtitle {
+  font-size: 12px;
+  color: gray;
+}
+
+.button {
+  background-color: #e0e0e0;
+  border: none;
+  border-radius: 14px;
+  padding: 6px 14px;
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.button.update {
+  background-color: #007aff;
+  color: white;
+}
+.more-button-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.more-button-wrapper .button {
+  width: 100%;
+  text-align: center;
+}
+  </style>
 </head>
 <body>
 
@@ -16,47 +88,88 @@
   <div class="container">
     <div id="summary-news-list"></div>
     <div class="more-button-wrapper">
-      <a href="parts/news.html" class="button">مشاهده بیشتر</a>
+      <a href="news.html" class="button">مشاهده بیشتر</a>
     </div>
   </div>
 
   <script>
-    // تست کنید که درخواست به درستی انجام می‌شود
-    fetch('../pages/news/news-list.json')
-      .then(res => {
-        if (!res.ok) throw new Error('شبکه خطا: ' + res.status);
-        return res.json();
-      })
-      .then(list => {
-        const container = document.getElementById('summary-news-list');
-        if (!container) {
-          console.error('عنصر #summary-news-list پیدا نشد');
+    document.addEventListener('DOMContentLoaded', () => {
+      loadAndDisplayNews();
+    });
+
+    async function loadAndDisplayNews() {
+      const url = '/pages/news/news-list.json';  // یا مسیر مطلق مناسب
+      let data;
+      try {
+        const resp = await fetch(url);
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+        data = await resp.json();
+        console.log('داده‌های JSON:', data);
+      } catch (e) {
+        console.error('خطا در بارگذاری JSON:', e);
+        document.getElementById('summary-news-list')
+                .innerHTML = '<p>خطا در بارگذاری اخبار.</p>';
+        return;
+      }
+
+      // چک کنیم که آرایه داریم
+      if (!Array.isArray(data)) {
+        console.error('فرمت JSON اشتباه است، آرایه نیست:', data);
+        return;
+      }
+
+      const firstFive = data.slice(0, 5);
+      if (firstFive.length === 0) {
+        document.getElementById('summary-news-list')
+                .innerHTML = '<p>خبری برای نمایش وجود ندارد.</p>';
+        return;
+      }
+
+      const container = document.getElementById('summary-news-list');
+      container.innerHTML = ''; // پاکسازی قبلی
+
+      firstFive.forEach(item => {
+        // مطمئن شویم فیلدهای لازم وجود دارند
+        const { title, summary, date, thumb, file } = item;
+        if (!title || !file) {
+          console.warn('آیتم ناقص:', item);
           return;
         }
-        list.slice(0,5).forEach(item => {
-          const div = document.createElement('div');
-          div.className = 'app';
-          div.innerHTML = `
-            <div class="app-info">
-              <img src="${item.thumb}" alt="${item.title}">
-              <div class="app-text">
-                <div class="app-title">${item.title}</div>
-                <div class="app-subtitle">${item.summary}</div>
-              </div>
-            </div>
-            <div class="app-actions">
-              <div class="app-date">${toPersianDate(item.date)}</div>
-              <a href="/pages/news/${item.file}" class="button">جزئیات</a>
-            </div>`;
-          container.appendChild(div);
-        });
-      })
-      .catch(err => console.error('مشکل در بارگذاری اخبار:', err));
 
-    function toPersianDate(iso) {
-      const [y,m,d] = iso.split('-');
-      const months = ['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
-      return `${+d} ${months[+m-1]} ${+y}`;
+        const div = document.createElement('div');
+        div.className = 'app';
+        div.innerHTML = `
+          <div class="app-info">
+            <img src="${thumb}" alt="${title}">
+            <div class="app-text">
+              <div class="app-title">${title}</div>
+              <div class="app-subtitle">${summary || ''}</div>
+            </div>
+          </div>
+          <div class="app-actions">
+            <div class="app-date">${toPersianDate(date)}</div>
+            <a href="/pages/news/${file}" class="button">جزئیات</a>
+          </div>`;
+        container.appendChild(div);
+      });
+    }
+
+    // تبدیل yyyy-mm-dd به "روز ماه سال" با ارقام فارسی
+    function toPersianDate(raw) {
+      if (!raw) return '';
+      // تبدیل ارقام فارسی به لاتین
+      const ascii = raw.replace(/[\u06F0-\u06F9]/g, ch =>
+        String.fromCharCode(ch.charCodeAt(0) - 1728)
+      );
+      const [y, m, d] = ascii.split('-').map(Number);
+      if (![y,m,d].every(n => !isNaN(n))) return raw;
+      const months = ['فروردین','اردیبهشت','خرداد','تیر',
+                      'مرداد','شهریور','مهر','آبان',
+                      'آذر','دی','بهمن','اسفند'];
+      // تبدیل ارقام به فارسی
+      const toPersianDigits = num =>
+        String(num).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
+      return `${toPersianDigits(d)} ${months[m-1]} ${toPersianDigits(y)}`;
     }
   </script>
 
