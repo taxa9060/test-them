@@ -1,28 +1,40 @@
-<!-- مرروی بر اخبار -->
-<div class="section-header">
-  <div>
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>مروری بر اخبار</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* … همه استایل‌های قبلی … */
+  </style>
+</head>
+<body>
+
+  <div class="section-header">
     <div class="section-title">اخبار</div>
     <div class="subtitle">مروری بر اخبار</div>
   </div>
-</div>
 
-<!-- فقط یک container -->
-<div class="container">
-
-    <!-- کارت‌های اولیه توسط JS پر می‌شوند -->
+  <div class="container">
     <div id="summary-news-list"></div>
-
-  <div class="more-button-wrapper">
-    <a href="parts/news.html" class="button">مشاهده بیشتر</a>
-  </div>
+    <div class="more-button-wrapper">
+      <a href="news.html" class="button">مشاهده بیشتر</a>
+    </div>
   </div>
 
   <script>
-    // بارگذاری JSON خبرها و نمایش ۵ مورد اول
-    fetch('../pages/news/news-list.json')
-      .then(res => res.json())
+    // تست کنید که درخواست به درستی انجام می‌شود
+    fetch('/pages/news/news-list.json')
+      .then(res => {
+        if (!res.ok) throw new Error('شبکه خطا: ' + res.status);
+        return res.json();
+      })
       .then(list => {
         const container = document.getElementById('summary-news-list');
+        if (!container) {
+          console.error('عنصر #summary-news-list پیدا نشد');
+          return;
+        }
         list.slice(0,5).forEach(item => {
           const div = document.createElement('div');
           div.className = 'app';
@@ -36,14 +48,13 @@
             </div>
             <div class="app-actions">
               <div class="app-date">${toPersianDate(item.date)}</div>
-              <a href="../pages/news/${item.file}" class="button">جزئیات</a>
-            </div>
-          `;
+              <a href="/pages/news/${item.file}" class="button">جزئیات</a>
+            </div>`;
           container.appendChild(div);
         });
-      });
+      })
+      .catch(err => console.error('مشکل در بارگذاری اخبار:', err));
 
-    // همان تابع تبدیل تاریخ
     function toPersianDate(iso) {
       const [y,m,d] = iso.split('-');
       const months = ['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
