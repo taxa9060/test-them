@@ -5,77 +5,121 @@
   <title>مروری بر اخبار</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
+    body {
+      font-family: 'Vazir', sans-serif;
+      background-color: #f5f5f5;
+      padding: 20px;
+    }
+
     .container {
-  background: white;
-  border-radius: 20px;
-  padding: 20px;
-  width: 100%;
-  max-width: 360px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  margin: 0 auto;
-}
+      background: white;
+      border-radius: 20px;
+      padding: 20px;
+      width: 100%;
+      max-width: 360px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      margin: 0 auto;
+    }
 
-.app {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 0;
-}
+    .section-header {
+      text-align: right;
+      margin-bottom: 16px;
+    }
 
-.app + .app {
-  border-top: 1px solid #eee;
-}
+    .section-title {
+      font-size: 1.4rem;
+      font-weight: bold;
+    }
 
-.app-info {
-  display: flex;
-  align-items: center;
-}
+    .subtitle {
+      color: #666;
+      font-size: 0.95rem;
+      margin-top: 4px;
+    }
 
-.app img {
-  width: 50px;
-  height: 50px;
-  border-radius: 12px;
-  margin-left: 10px;
-}
+    .app {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 0;
+    }
 
-.app-text {
-  display: flex;
-  flex-direction: column;
-}
+    .app + .app {
+      border-top: 1px solid #eee;
+    }
 
-.app-title {
-  font-weight: bold;
-}
+    .app-info {
+      display: flex;
+      align-items: center;
+    }
 
-.app-subtitle {
-  font-size: 12px;
-  color: gray;
-}
+    .app img {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      margin-left: 10px;
+    }
 
-.button {
-  background-color: #e0e0e0;
-  border: none;
-  border-radius: 14px;
-  padding: 6px 14px;
-  font-size: 14px;
-  cursor: pointer;
-  text-decoration: none;
-}
+    .app-text {
+      display: flex;
+      flex-direction: column;
+      text-align: right;
+    }
 
-.button.update {
-  background-color: #007aff;
-  color: white;
-}
-.more-button-wrapper {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-}
+    .app-title {
+      font-weight: bold;
+      font-size: 1rem;
+    }
 
-.more-button-wrapper .button {
-  width: 100%;
-  text-align: center;
-}
+    .app-subtitle {
+      font-size: 12px;
+      color: gray;
+    }
+
+    .app-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 6px;
+    }
+
+    .app-date {
+      font-size: 0.8rem;
+      color: #999;
+    }
+
+    .button {
+      background-color: #e0e0e0;
+      border: none;
+      border-radius: 14px;
+      padding: 6px 14px;
+      font-size: 14px;
+      cursor: pointer;
+      text-decoration: none;
+      color: #007aff;
+      transition: background-color 0.2s ease;
+    }
+
+    .button:hover {
+      background-color: #d0d0d0;
+    }
+
+    .more-button-wrapper {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .more-button-wrapper .button {
+      width: 100%;
+      text-align: center;
+      background-color: #007aff;
+      color: white;
+    }
+
+    .more-button-wrapper .button:hover {
+      background-color: #005bb5;
+    }
   </style>
 </head>
 <body>
@@ -87,6 +131,7 @@
 
   <div class="container">
     <div id="summary-news-list"></div>
+
     <div class="more-button-wrapper">
       <a href="parts/news.html" class="button">مشاهده بیشتر</a>
     </div>
@@ -98,13 +143,12 @@
     });
 
     async function loadAndDisplayNews() {
-      const url = '../pages/news/news-list.json';  // یا مسیر مطلق مناسب
+      const url = '../pages/news/news-list.json';
       let data;
       try {
         const resp = await fetch(url);
         if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
         data = await resp.json();
-        console.log('داده‌های JSON:', data);
       } catch (e) {
         console.error('خطا در بارگذاری JSON:', e);
         document.getElementById('summary-news-list')
@@ -112,9 +156,8 @@
         return;
       }
 
-      // چک کنیم که آرایه داریم
       if (!Array.isArray(data)) {
-        console.error('فرمت JSON اشتباه است، آرایه نیست:', data);
+        console.error('فرمت JSON اشتباه است:', data);
         return;
       }
 
@@ -126,15 +169,11 @@
       }
 
       const container = document.getElementById('summary-news-list');
-      container.innerHTML = ''; // پاکسازی قبلی
+      container.innerHTML = '';
 
       firstFive.forEach(item => {
-        // مطمئن شویم فیلدهای لازم وجود دارند
         const { title, summary, date, thumb, file } = item;
-        if (!title || !file) {
-          console.warn('آیتم ناقص:', item);
-          return;
-        }
+        if (!title || !file) return;
 
         const div = document.createElement('div');
         div.className = 'app';
@@ -147,29 +186,11 @@
             </div>
           </div>
           <div class="app-actions">
-            <div class="app-date">${toPersianDate(date)}</div>
+            <div class="app-date">${date || ''}</div>
             <a href="/pages/news/${file}" class="button">جزئیات</a>
           </div>`;
         container.appendChild(div);
       });
-    }
-
-    // تبدیل yyyy-mm-dd به "روز ماه سال" با ارقام فارسی
-    function toPersianDate(raw) {
-      if (!raw) return '';
-      // تبدیل ارقام فارسی به لاتین
-      const ascii = raw.replace(/[\u06F0-\u06F9]/g, ch =>
-        String.fromCharCode(ch.charCodeAt(0) - 1728)
-      );
-      const [y, m, d] = ascii.split('-').map(Number);
-      if (![y,m,d].every(n => !isNaN(n))) return raw;
-      const months = ['فروردین','اردیبهشت','خرداد','تیر',
-                      'مرداد','شهریور','مهر','آبان',
-                      'آذر','دی','بهمن','اسفند'];
-      // تبدیل ارقام به فارسی
-      const toPersianDigits = num =>
-        String(num).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
-      return `${toPersianDigits(d)} ${months[m-1]} ${toPersianDigits(y)}`;
     }
   </script>
 
