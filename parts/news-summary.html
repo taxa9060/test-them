@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>اخبار</title>
-  <link rel="stylesheet" href="assets/css/style.css"> <!-- اگر فایل CSS داری -->
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 
@@ -17,18 +17,19 @@
 
   <!-- کانتینر اخبار -->
   <div class="container" id="news-container">
-    <!-- کارت‌های خبری دستی که مقدارشان از JSON پر می‌شود -->
+
+    <!-- ۵ کارت دستی (قالب ثابت) -->
     <div class="app">
       <div class="app-info">
-        <img src="assets/images/news/image-card1.png" alt="تصویر 1">
+        <img src="" alt="">
         <div class="app-text">
-          <div class="app-title">خبر یک</div>
-          <div class="app-subtitle">توضیح خبر یک</div>
+          <div class="app-title"></div>
+          <div class="app-subtitle"></div>
         </div>
       </div>
       <div class="app-actions">
-        <div class="app-date">۳ اردیبهشت ۱۴۰۴</div>
-        <a href="cards/index-card2.html">
+        <div class="app-date"></div>
+        <a href="#">
           <button class="button">جزئیات</button>
         </a>
       </div>
@@ -36,15 +37,15 @@
 
     <div class="app">
       <div class="app-info">
-        <img src="assets/images/news/image-card1.png" alt="تصویر 2"> 
+        <img src="" alt="">
         <div class="app-text">
-          <div class="app-title">خبر دو</div>
-          <div class="app-subtitle">توضیح خبر دو</div>
+          <div class="app-title"></div>
+          <div class="app-subtitle"></div>
         </div>
       </div>
       <div class="app-actions">
-        <div class="app-date">۳ اردیبهشت ۱۴۰۴</div>
-        <a href="cards/index-card2.html">
+        <div class="app-date"></div>
+        <a href="#">
           <button class="button">جزئیات</button>
         </a>
       </div>
@@ -52,15 +53,15 @@
 
     <div class="app">
       <div class="app-info">
-        <img src="assets/images/news/image-card1.png" alt="تصویر 3">
+        <img src="" alt="">
         <div class="app-text">
-          <div class="app-title">خبر سوم</div>
-          <div class="app-subtitle">توضیح خبر سوم</div>
+          <div class="app-title"></div>
+          <div class="app-subtitle"></div>
         </div>
       </div>
       <div class="app-actions">
-        <div class="app-date">۳ اردیبهشت ۱۴۰۴</div>
-        <a href="cards/index-card2.html">
+        <div class="app-date"></div>
+        <a href="#">
           <button class="button">جزئیات</button>
         </a>
       </div>
@@ -68,15 +69,15 @@
 
     <div class="app">
       <div class="app-info">
-        <img src="assets/images/news/image-card1.png" alt="تصویر 4">
+        <img src="" alt="">
         <div class="app-text">
-          <div class="app-title">خبر چهار</div>
-          <div class="app-subtitle">توضیح خبر چهار</div>
+          <div class="app-title"></div>
+          <div class="app-subtitle"></div>
         </div>
       </div>
       <div class="app-actions">
-        <div class="app-date">۳ اردیبهشت ۱۴۰۴</div>
-        <a href="cards/index-card2.html">
+        <div class="app-date"></div>
+        <a href="#">
           <button class="button">جزئیات</button>
         </a>
       </div>
@@ -84,15 +85,15 @@
 
     <div class="app">
       <div class="app-info">
-        <img src="assets/images/news/image-card1.png" alt="تصویر 5">
+        <img src="" alt="">
         <div class="app-text">
-          <div class="app-title">خبر پنج</div>
-          <div class="app-subtitle">توضیح خبر پنج</div>
+          <div class="app-title"></div>
+          <div class="app-subtitle"></div>
         </div>
       </div>
       <div class="app-actions">
-        <div class="app-date">۳ اردیبهشت ۱۴۰۴</div>
-        <a href="cards/index-card2.html">
+        <div class="app-date"></div>
+        <a href="#">
           <button class="button">جزئیات</button>
         </a>
       </div>
@@ -102,30 +103,46 @@
     <div class="more-button-wrapper">
       <a href="parts/news.html" class="button">مشاهده بیشتر</a>
     </div>
+
   </div>
 
-  <!-- اسکریپت بارگذاری اطلاعات از JSON -->
+  <!-- اسکریپت مقداردهی ۵ کارت بر اساس بزرگترین ID -->
   <script>
     fetch('pages/news/news-list.json')
-      .then(response => response.json())
+      .then(res => res.json())
       .then(data => {
-        const cards = document.querySelectorAll('.app');
-        data.slice(0, 5).forEach((item, index) => {
-          if (cards[index]) {
-            const img = cards[index].querySelector('img');
-            img.src = item.thumb;
-            img.alt = item.title;
+        // ۱. تبدیل idها به عدد و مرتب‌سازی نزولی
+        const sorted = data
+          .map(item => ({ ...item, id: parseInt(item.id, 10) }))
+          .sort((a, b) => b.id - a.id);
 
-            cards[index].querySelector('.app-title').textContent = item.title;
-            cards[index].querySelector('.app-subtitle').textContent = item.summary;
-            cards[index].querySelector('.app-date').textContent = item.date;
+        // ۲. برش ۵ مورد اول
+        const topFive = sorted.slice(0, 5);
 
-            const link = cards[index].querySelector('a');
-            link.href = item.file;
-          }
+        // ۳. انتخاب ۵ کارت دستی
+        const cards = document.querySelectorAll('#news-container .app');
+
+        topFive.forEach((item, idx) => {
+          const card = cards[idx];
+          if (!card) return;
+
+          // تصویر و alt
+          const img = card.querySelector('img');
+          img.src = item.thumb;
+          img.alt = item.title;
+
+          // عنوان و خلاصه
+          card.querySelector('.app-title').textContent = item.title;
+          card.querySelector('.app-subtitle').textContent = item.summary;
+
+          // تاریخ
+          card.querySelector('.app-date').textContent = item.date;
+
+          // لینک
+          card.querySelector('a').href = `cards/${item.file}`;
         });
       })
-      .catch(error => console.error('خطا در بارگذاری اخبار:', error));
+      .catch(err => console.error('خطا در بارگذاری اخبار:', err));
   </script>
 
 </body>
