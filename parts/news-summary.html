@@ -18,13 +18,13 @@
   <div class="container">
     <div id="summary-news-list"></div>
     <div class="more-button-wrapper">
-      <a href="news.html" class="button">مشاهده بیشتر</a>
+      <a href="parts/news.html" class="button">مشاهده بیشتر</a>
     </div>
   </div>
 
   <script>
     // تست کنید که درخواست به درستی انجام می‌شود
-    fetch('/pages/news/news-list.json')
+    fetch('../pages/news/news-list.json')
       .then(res => {
         if (!res.ok) throw new Error('شبکه خطا: ' + res.status);
         return res.json();
