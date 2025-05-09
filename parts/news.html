@@ -206,13 +206,6 @@
           container.appendChild(div);
         });
       });
-
-    // تبدیل yyyy-mm-dd به قالب شمسی ساده
-    function toPersianDate(iso) {
-      const [y,m,d] = iso.split('-');
-      const months = ['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
-      return `${+d} ${months[+m-1]} ${+y}`;
-    }
   </script>
 
 </body>
