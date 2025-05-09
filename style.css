@@ -75,7 +75,7 @@ body {
 .header-app .mega-menu3 {
   display: none;
   position: fixed;
-  top: 75px;
+  top: 70px;
   right: 0;
   left: 0;
   background: rgba(255, 255, 255, 0.9);
@@ -126,10 +126,10 @@ body {
 }
 /* ====== تاریخ نما====== */
 .news-actions .news-date {
-      /* تاریخ دوباره اینجا هم */
       font-size: 0.8rem;
       color: #888;
     }
+
 /* ====== بخش عنوان + دکمه بیشتر ====== */
 .section-header {
   display: flex;
@@ -298,6 +298,80 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+/* ====== اپلیکیشن ====== */
+.container {
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+  width: 100%;
+  max-width: 360px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+}
+
+.app {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+}
+
+.app + .app {
+  border-top: 1px solid #eee;
+}
+
+.app-info {
+  display: flex;
+  align-items: center;
+}
+
+.app img {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  margin-left: 10px;
+}
+
+.app-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.app-title {
+  font-weight: bold;
+}
+
+.app-subtitle {
+  font-size: 12px;
+  color: gray;
+}
+
+.button {
+  background-color: #e0e0e0;
+  border: none;
+  border-radius: 14px;
+  padding: 6px 14px;
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.button.update {
+  background-color: #007aff;
+  color: white;
+}
+.more-button-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.more-button-wrapper .button {
+  width: 100%;
+  text-align: center;
+}
+
 /* ======= ریسپانسیو ======= */
 @media screen and (max-width: 768px) {
   .card {
