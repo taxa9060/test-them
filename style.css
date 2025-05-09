@@ -300,6 +300,7 @@ body {
 }
 
 /* ====== اپلیکیشن ====== */
+<!---
 .container {
   background: white;
   border-radius: 20px;
@@ -371,7 +372,7 @@ body {
   width: 100%;
   text-align: center;
 }
-
+-->
 /* ======= ریسپانسیو ======= */
 @media screen and (max-width: 768px) {
   .card {
