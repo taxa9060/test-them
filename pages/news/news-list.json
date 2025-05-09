@@ -1,0 +1,66 @@
+[
+  {
+    "title": "خبر آزمون",
+    "summary": "توضیح خبر آزمون",
+    "date": "۱۴۰۴-۰۲-۰۳",
+    "thumb": "https://via.placeholder.com/80",
+    "file": "news-azmon.html"
+  },
+
+  {
+    "title": "خبر هشت",
+    "summary": "توضیح خبر هشت",
+    "date": "۱۴۰۴-۰۲-۰۲",
+    "thumb": "https://via.placeholder.com/80",
+    "file": "news-2.html"
+  },
+  {
+    "title": "خبر هفت",
+    "summary": "توضیح خبر هفت",
+    "date": "۱۴۰۴-۰۲-۰۲",
+    "thumb": "https://via.placeholder.com/80",
+    "file": "news-2.html"
+  }, 
+  {
+    "title": "خبر شش",
+    "summary": "توضیح خبر شش",
+    "date": "۱۴۰۴-۰۲-۰۲",
+    "thumb": "https://via.placeholder.com/80",
+    "file": "news-2.html"
+  }, 
+  {
+    "title": "خبر پنج",
+    "summary": "توضیح خبر پنج",
+    "date": "۱۴۰۴-۰۲-۰۲",
+    "thumb": "https://via.placeholder.com/80",
+    "file": "news-2.html"
+  },
+  {
+    "title": "خبر چهار",
+    "summary": "توضیح خبر چهار",
+    "date": "۱۴۰۴-۰۲-۰۲",
+    "thumb": "https://via.placeholder.com/80",
+    "file": "news-2.html"
+  },
+  {
+    "title": "خبر سه",
+    "summary": "توضیح خبر سه",
+    "date": "۱۴۰۴-۰۲-۰۲",
+    "thumb": "https://via.placeholder.com/80",
+    "file": "news-2.html"
+  },
+  {
+    "title": "خبر دو",
+    "summary": "توضیح خبر دو",
+    "date": "۱۴۰۴-۰۲-۰۲",
+    "thumb": "https://via.placeholder.com/80",
+    "file": "news-2.html"
+  },
+  {
+    "title": "خبر یک",
+    "summary": "توضیح خبر یک",
+    "date": "۱۴۰۴-۰۲-۰۱",
+    "thumb": "https://via.placeholder.com/80",
+    "file": "news-1.html"
+  }
+]
