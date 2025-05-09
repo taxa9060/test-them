@@ -88,7 +88,7 @@
   <div class="container">
     <div id="summary-news-list"></div>
     <div class="more-button-wrapper">
-      <a href="news.html" class="button">مشاهده بیشتر</a>
+      <a href="parts/news.html" class="button">مشاهده بیشتر</a>
     </div>
   </div>
 
@@ -98,7 +98,7 @@
     });
 
     async function loadAndDisplayNews() {
-      const url = '/pages/news/news-list.json';  // یا مسیر مطلق مناسب
+      const url = '../pages/news/news-list.json';  // یا مسیر مطلق مناسب
       let data;
       try {
         const resp = await fetch(url);
