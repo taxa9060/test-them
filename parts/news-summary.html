@@ -1,148 +1,47 @@
-<!DOCTYPE html>
-<html lang="fa" dir="rtl">
-<head>
-  <meta charset="UTF-8">
-  <title>اخبار</title>
-  <link rel="stylesheet" href="assets/css/style.css">
-</head>
-<body>
-
-  <!-- بخش عنوان -->
-  <div class="section-header">
-    <div>
-      <div class="section-title">اخبار</div>
-      <div class="subtitle">مروری بر اخبار</div>
-    </div>
+<!-- مرروی بر اخبار -->
+<div class="section-header">
+  <div>
+    <div class="section-title">اخبار</div>
+    <div class="subtitle">مروری بر اخبار</div>
   </div>
+</div>
 
-  <!-- کانتینر اخبار -->
-  <div class="container" id="news-container">
+<!-- فقط یک container -->
+<div class="container">
 
-    <!-- ۵ کارت دستی (قالب ثابت) -->
-    <div class="app">
-      <div class="app-info">
-        <img src="" alt="">
-        <div class="app-text">
-          <div class="app-title"></div>
-          <div class="app-subtitle"></div>
-        </div>
-      </div>
-      <div class="app-actions">
-        <div class="app-date"></div>
-        <a href="#">
-          <button class="button">جزئیات</button>
-        </a>
-      </div>
-    </div>
-
-    <div class="app">
-      <div class="app-info">
-        <img src="" alt="">
-        <div class="app-text">
-          <div class="app-title"></div>
-          <div class="app-subtitle"></div>
-        </div>
-      </div>
-      <div class="app-actions">
-        <div class="app-date"></div>
-        <a href="#">
-          <button class="button">جزئیات</button>
-        </a>
-      </div>
-    </div>
-
-    <div class="app">
-      <div class="app-info">
-        <img src="" alt="">
-        <div class="app-text">
-          <div class="app-title"></div>
-          <div class="app-subtitle"></div>
-        </div>
-      </div>
-      <div class="app-actions">
-        <div class="app-date"></div>
-        <a href="#">
-          <button class="button">جزئیات</button>
-        </a>
-      </div>
-    </div>
-
-    <div class="app">
-      <div class="app-info">
-        <img src="" alt="">
-        <div class="app-text">
-          <div class="app-title"></div>
-          <div class="app-subtitle"></div>
-        </div>
-      </div>
-      <div class="app-actions">
-        <div class="app-date"></div>
-        <a href="#">
-          <button class="button">جزئیات</button>
-        </a>
-      </div>
-    </div>
-
-    <div class="app">
-      <div class="app-info">
-        <img src="" alt="">
-        <div class="app-text">
-          <div class="app-title"></div>
-          <div class="app-subtitle"></div>
-        </div>
-      </div>
-      <div class="app-actions">
-        <div class="app-date"></div>
-        <a href="#">
-          <button class="button">جزئیات</button>
-        </a>
-      </div>
-    </div>
-
-    <!-- دکمه مشاهده بیشتر -->
-    <div class="more-button-wrapper">
-      <a href="parts/news.html" class="button">مشاهده بیشتر</a>
-    </div>
-
-  </div>
-
-  <!-- اسکریپت مقداردهی ۵ کارت بر اساس بزرگترین ID -->
+  
   <script>
-    fetch('pages/news/news-list.json')
+    fetch('../pages/news/news-list.json')
       .then(res => res.json())
-      .then(data => {
-        // ۱. تبدیل idها به عدد و مرتب‌سازی نزولی
-        const sorted = data
-          .map(item => ({ ...item, id: parseInt(item.id, 10) }))
-          .sort((a, b) => b.id - a.id);
-
-        // ۲. برش ۵ مورد اول
-        const topFive = sorted.slice(0, 5);
-
-        // ۳. انتخاب ۵ کارت دستی
-        const cards = document.querySelectorAll('#news-container .app');
-
-        topFive.forEach((item, idx) => {
-          const card = cards[idx];
-          if (!card) return;
-
-          // تصویر و alt
-          const img = card.querySelector('img');
-          img.src = item.thumb;
-          img.alt = item.title;
-
-          // عنوان و خلاصه
-          card.querySelector('.app-title').textContent = item.title;
-          card.querySelector('.app-subtitle').textContent = item.summary;
-
-          // تاریخ
-          card.querySelector('.app-date').textContent = item.date;
-
-          // لینک
-          card.querySelector('a').href = `cards/${item.file}`;
+      .then(list => {
+        const container = document.getElementById('all-news-list');
+        list.forEach(item => {
+          const div = document.createElement('div');
+          div.className = 'app';
+          div.innerHTML = `
+            <div class="app-info">
+              <img src="${item.thumb}" alt="${item.title}">
+              <div class="app-text">
+                <div class="app-title">${item.title}</div>
+                <div class="app-subtitle">${item.summary}</div>
+              </div>
+            </div>
+            <div class="app-actions">
+              <div class="app-date">${item.date}</div>
+              <a href="cards/${item.file}">
+                <button class="button">جزئیات</button>
+              </a>
+            </div>
+          `;
+          container.appendChild(div);
         });
-      })
-      .catch(err => console.error('خطا در بارگذاری اخبار:', err));
+
+        // دکمه مشاهده بیشتر
+        const moreBtn = document.createElement('div');
+        moreBtn.className = 'more-button-wrapper';
+        moreBtn.innerHTML = `<a href="parts/news.html" class="button">مشاهده بیشتر</a>`;
+        container.appendChild(moreBtn);
+      });
   </script>
 
 </body>
