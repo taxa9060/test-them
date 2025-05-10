@@ -4,7 +4,7 @@
   const container = document.getElementById('all-news-list');
   if (!container) return;
 
-  fetch('news-list.json')
+  fetch('news/news-list.json')
     .then(res => res.json())
     .then(list => {
       // فقط ۵ خبر اول
