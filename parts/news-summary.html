@@ -1,47 +1,98 @@
-<!-- باقی بخش‌های <head> و style شما بدون تغییر است -->
+<!-- مرروی بر اخبار -->
+<div class="section-header">
+  <div>
+    <div class="section-title">اخبار</div>
+    <div class="subtitle">مروری بر اخبار</div>
+  </div>
+</div>
 
-<body>
-  <div class="news-container">
-    <div class="news-header">
-      <h2>اخبار</h2>
-      <a href="../index.html" class="back-btn">
-        <img src="assets/images/back.gif" alt="بازگشت" />
-        بازگشت
-      </a>
+<!-- فقط یک container -->
+<div class="container">
+
+  <!-- کارت‌های خبری -->
+  <div class="app">
+    <div class="app-info">
+      <img src="assets/images/news/image-card1.png" alt="تصویر 1">
+      <div class="app-text">
+        <div class="app-title">خبر یک</div>
+        <div class="app-subtitle">توضیح خبر یک</div>
+      </div>
     </div>
-
-    <div id="all-news-list"></div>
-
-    <div class="load-more">
-      <a href="news-more.html" class="btn-load">مشاهده بیشتر</a>
+    <div class="app-actions">
+      <div class="app-date">۳ اردیبهشت ۱۴۰۴</div>
+      <a href="cards/index-card2.html">
+        <button class="button">جزئیات</button>
+      </a>
     </div>
   </div>
 
-  <script>
-    fetch('../pages/news/news-list.json')
-      .then(res => res.json())
-      .then(list => {
-        const container = document.getElementById('all-news-list');
-        const firstFive = list.slice(0, 5); // فقط ۵ مورد اول
+  <div class="app">
+    <div class="app-info">
+      <img src="assets/images/news/image-card1.png" alt="تصویر 2"> 
+      <div class="app-text">
+        <div class="app-title">خبر دو</div>
+        <div class="app-subtitle">توضیح خبر دو</div>
+      </div>
+    </div>
+    <div class="app-actions">
+      <div class="app-date">۳ اردیبهشت ۱۴۰۴</div>
+      <a href="cards/index-card2.html">
+        <button class="button">جزئیات</button>
+      </a>
+    </div>
+  </div>
 
-        firstFive.forEach(item => {
-          const div = document.createElement('div');
-          div.className = 'news-item';
-          div.innerHTML = `
-            <div class="news-thumb">
-              <img src="${item.thumb}" alt="${item.title}">
-            </div>
-            <div class="news-body">
-              <div class="news-title">${item.title}</div>
-              <div class="news-summary">${item.summary}</div>
-            </div>
-            <div class="news-actions">
-              <div class="news-date">${item.date}</div>
-              <a href="../pages/news/${item.file}" class="btn-details">جزئیات</a>
-            </div>
-          `;
-          container.appendChild(div);
-        });
-      });
-  </script>
-</body>
+  <div class="app">
+    <div class="app-info">
+      <img src="assets/images/news/image-card1.png" alt="تصویر 3">
+      <div class="app-text">
+        <div class="app-title">خبر سوم</div>
+        <div class="app-subtitle">توضیح خبر سوم</div>
+      </div>
+    </div>
+    <div class="app-actions">
+      <div class="app-date">۳ اردیبهشت ۱۴۰۴</div>
+      <a href="cards/index-card2.html">
+        <button class="button">جزئیات</button>
+      </a>
+    </div>
+  </div>
+
+  <div class="app">
+    <div class="app-info">
+      <img src="assets/images/news/image-card1.png" alt="تصویر 4">
+      <div class="app-text">
+        <div class="app-title">خبر چهار</div>
+        <div class="app-subtitle">توضیح خبر چهار</div>
+      </div>
+    </div>
+    <div class="app-actions">
+      <div class="app-date">۳ اردیبهشت ۱۴۰۴</div>
+      <a href="cards/index-card2.html">
+        <button class="button">جزئیات</button>
+      </a>
+    </div>
+  </div>
+
+  <div class="app">
+    <div class="app-info">
+      <img src="assets/images/news/image-card1.png" alt="تصویر 5">
+      <div class="app-text">
+        <div class="app-title">خبر پنج</div>
+        <div class="app-subtitle">توضیح خبر پنج</div>
+      </div>
+    </div>
+    <div class="app-actions">
+      <div class="app-date">۳ اردیبهشت ۱۴۰۴</div>
+      <a href="cards/index-card2.html">
+        <button class="button">جزئیات</button>
+      </a>
+    </div>
+  </div>
+
+  <!-- دکمه مشاهده بیشتر در مکان درست -->
+  <div class="more-button-wrapper">
+    <a href="parts/news.html" class="button">مشاهده بیشتر</a>
+  </div>
+
+</div>
