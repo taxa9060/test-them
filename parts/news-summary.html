@@ -1,14 +1,47 @@
-<!-- parts/news-summary.html -->
-<div class="section-header">
-  <div>
-    <div class="section-title">اخبار</div>
-    <div class="subtitle">مروری بر اخبار</div>
-  </div>
-</div>
-<div class="container" id="all-news-list">
-  <!-- اینجا آیتم‌ها اضافه می‌شوند -->
-<div class="more-button-wrapper">
-  <a href="parts/news.html" class="button">مشاهده بیشتر</a>
-</div>
-</div>
+<!-- باقی بخش‌های <head> و style شما بدون تغییر است -->
 
+<body>
+  <div class="news-container">
+    <div class="news-header">
+      <h2>اخبار</h2>
+      <a href="../index.html" class="back-btn">
+        <img src="assets/images/back.gif" alt="بازگشت" />
+        بازگشت
+      </a>
+    </div>
+
+    <div id="all-news-list"></div>
+
+    <div class="load-more">
+      <a href="news-more.html" class="btn-load">مشاهده بیشتر</a>
+    </div>
+  </div>
+
+  <script>
+    fetch('../pages/news/news-list.json')
+      .then(res => res.json())
+      .then(list => {
+        const container = document.getElementById('all-news-list');
+        const firstFive = list.slice(0, 5); // فقط ۵ مورد اول
+
+        firstFive.forEach(item => {
+          const div = document.createElement('div');
+          div.className = 'news-item';
+          div.innerHTML = `
+            <div class="news-thumb">
+              <img src="${item.thumb}" alt="${item.title}">
+            </div>
+            <div class="news-body">
+              <div class="news-title">${item.title}</div>
+              <div class="news-summary">${item.summary}</div>
+            </div>
+            <div class="news-actions">
+              <div class="news-date">${item.date}</div>
+              <a href="../pages/news/${item.file}" class="btn-details">جزئیات</a>
+            </div>
+          `;
+          container.appendChild(div);
+        });
+      });
+  </script>
+</body>
