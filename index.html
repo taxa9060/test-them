@@ -28,6 +28,9 @@
   <!-- اجرای includeHTML و سپس بارگذاری فایل JS -->
 <script>
   w3.includeHTML(() => {
+    const newsScript = document.createElement('script');
+      newsScript.src = 'assets/js/news-summary.js';
+      document.body.appendChild(newsScript);
     const script = document.createElement('script');
     script.src = 'assets/js/menu.js'; // مسیر صحیح فایل
     document.body.appendChild(script);
