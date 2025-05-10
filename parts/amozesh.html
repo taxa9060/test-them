@@ -2,7 +2,7 @@
 <html lang="fa" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <title>اخبار</title>
+  <title>دوره های آموزشی</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     * {
@@ -159,7 +159,7 @@
 
   <div class="news-container">
     <div class="news-header">
-      <h2>اخبار</h2>
+      <h2>دوره های آموزشی</h2>
       <a href="../index.html" class="back-btn">
         <img src="assets/images/back.gif" alt="بازگشت" />
         بازگشت
@@ -170,7 +170,7 @@
   </div>
 
   <script>
-    fetch('pages/amozesh/amozesh-list.json')
+    fetch('../pages/amozesh/amozesh-list.json')
       .then(res => res.json())
       .then(list => {
         const container = document.getElementById('all-news-list');
