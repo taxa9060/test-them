@@ -1,149 +1,171 @@
-<!-- مرروی بر اخبار -->
-<div class="section-header">
-  <div>
-    <div class="section-title">اخبار</div>
-    <div class="subtitle">مروری بر اخبار</div>
-  </div>
-</div>
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>اخبار</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- اگر استایل‌ها در style.css ریشه هستند -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-<!-- فقط یک container -->
-<div class="container">
-
-  
-  <script>
-    fetch('../pages/news/news-list.json')
-      .then(res => res.json())
-      .then(list => {
-        const container = document.getElementById('all-news-list');
-        const item = list[0];
-          const div = document.createElement('div');
-          div.className = 'app';
-          div.innerHTML = `
-            <div class="app-info">
-              <img src="${item.thumb}" alt="${item.title}">
-              <div class="app-text">
-                <div class="app-title">${item.title}</div>
-                <div class="app-subtitle">${item.summary}</div>
-              </div>
-            </div>
-            <div class="app-actions">
-              <div class="app-date">${item.date}</div>
-              <a href="cards/${item.file}">
-                <button class="button">جزئیات</button>
-              </a>
-            </div>
-          `;
-          container.appendChild(div);
-        });
-          </script>
-  <script>
-    fetch('../pages/news/news-list.json')
-      .then(res => res.json())
-      .then(list => {
-        const container = document.getElementById('all-news-list');
-      const item = list[1];
-          const div = document.createElement('div');
-          div.className = 'app';
-          div.innerHTML = `
-            <div class="app-info">
-              <img src="${item.thumb}" alt="${item.title}">
-              <div class="app-text">
-                <div class="app-title">${item.title}</div>
-                <div class="app-subtitle">${item.summary}</div>
-              </div>
-            </div>
-            <div class="app-actions">
-              <div class="app-date">${item.date}</div>
-              <a href="cards/${item.file}">
-                <button class="button">جزئیات</button>
-              </a>
-            </div>
-          `;
-          container.appendChild(div);
-        });
-          </script>
-          <script>
-    fetch('../pages/news/news-list.json')
-      .then(res => res.json())
-      .then(list => {
-        const container = document.getElementById('all-news-list');
-       const item = list[2];
-          const div = document.createElement('div');
-          div.className = 'app';
-          div.innerHTML = `
-            <div class="app-info">
-              <img src="${item.thumb}" alt="${item.title}">
-              <div class="app-text">
-                <div class="app-title">${item.title}</div>
-                <div class="app-subtitle">${item.summary}</div>
-              </div>
-            </div>
-            <div class="app-actions">
-              <div class="app-date">${item.date}</div>
-              <a href="cards/${item.file}">
-                <button class="button">جزئیات</button>
-              </a>
-            </div>
-          `;
-          container.appendChild(div);
-        });
-         </script> 
-         <script>
-    fetch('../pages/news/news-list.json')
-      .then(res => res.json())
-      .then(list => {
-        const container = document.getElementById('all-news-list');
-       const item = list[3];
-          const div = document.createElement('div');
-          div.className = 'app';
-          div.innerHTML = `
-            <div class="app-info">
-              <img src="${item.thumb}" alt="${item.title}">
-              <div class="app-text">
-                <div class="app-title">${item.title}</div>
-                <div class="app-subtitle">${item.summary}</div>
-              </div>
-            </div>
-            <div class="app-actions">
-              <div class="app-date">${item.date}</div>
-              <a href="cards/${item.file}">
-                <button class="button">جزئیات</button>
-              </a>
-            </div>
-          `;
-          container.appendChild(div);
-        });
-          </script>
-          <script>
-    fetch('../pages/news/news-list.json')
-      .then(res => res.json())
-      .then(list => {
-        const container = document.getElementById('all-news-list');
-       const item = list[4];
-          const div = document.createElement('div');
-          div.className = 'app';
-          div.innerHTML = `
-            <div class="app-info">
-              <img src="${item.thumb}" alt="${item.title}">
-              <div class="app-text">
-                <div class="app-title">${item.title}</div>
-                <div class="app-subtitle">${item.summary}</div>
-              </div>
-            </div>
-            <div class="app-actions">
-              <div class="app-date">${item.date}</div>
-              <a href="cards/${item.file}">
-                <button class="button">جزئیات</button>
-              </a>
-            </div>
-          `;
-          container.appendChild(div);
-        });
-          </script>
-  <!-- دکمه مشاهده بیشتر در مکان درست -->
-  <div class="more-button-wrapper">
-    <a href="parts/news.html" class="button">مشاهده بیشتر</a>
+  <!-- مروری بر اخبار -->
+  <div class="section-header">
+    <div>
+      <div class="section-title">اخبار</div>
+      <div class="subtitle">مروری بر اخبار</div>
+    </div>
   </div>
+
+  <!-- فقط یک container با id درست -->
+  <div class="container" id="all-news-list">
+
+    <!-- بارگذاری خبر اول -->
+    <script>
+      fetch('../pages/news/news-list.json')
+        .then(res => res.json())
+        .then(list => {
+          const container = document.getElementById('all-news-list');
+          const item = list[0];
+          const div = document.createElement('div');
+          div.className = 'app';
+          div.innerHTML = `
+            <div class="app-info">
+              <img src="${item.thumb}" alt="${item.title}">
+              <div class="app-text">
+                <div class="app-title">${item.title}</div>
+                <div class="app-subtitle">${item.summary}</div>
+              </div>
+            </div>
+            <div class="app-actions">
+              <div class="app-date">${item.date}</div>
+              <a href="cards/${item.file}">
+                <button class="button">جزئیات</button>
+              </a>
+            </div>
+          `;
+          container.appendChild(div);
+        });
+    </script>
+
+    <!-- بارگذاری خبر دوم -->
+    <script>
+      fetch('../pages/news/news-list.json')
+        .then(res => res.json())
+        .then(list => {
+          const container = document.getElementById('all-news-list');
+          const item = list[1];
+          const div = document.createElement('div');
+          div.className = 'app';
+          div.innerHTML = `
+            <div class="app-info">
+              <img src="${item.thumb}" alt="${item.title}">
+              <div class="app-text">
+                <div class="app-title">${item.title}</div>
+                <div class="app-subtitle">${item.summary}</div>
+              </div>
+            </div>
+            <div class="app-actions">
+              <div class="app-date">${item.date}</div>
+              <a href="cards/${item.file}">
+                <button class="button">جزئیات</button>
+              </a>
+            </div>
+          `;
+          container.appendChild(div);
+        });
+    </script>
+
+    <!-- بارگذاری خبر سوم -->
+    <script>
+      fetch('../pages/news/news-list.json')
+        .then(res => res.json())
+        .then(list => {
+          const container = document.getElementById('all-news-list');
+          const item = list[2];
+          const div = document.createElement('div');
+          div.className = 'app';
+          div.innerHTML = `
+            <div class="app-info">
+              <img src="${item.thumb}" alt="${item.title}">
+              <div class="app-text">
+                <div class="app-title">${item.title}</div>
+                <div class="app-subtitle">${item.summary}</div>
+              </div>
+            </div>
+            <div class="app-actions">
+              <div class="app-date">${item.date}</div>
+              <a href="cards/${item.file}">
+                <button class="button">جزئیات</button>
+              </a>
+            </div>
+          `;
+          container.appendChild(div);
+        });
+    </script>
+
+    <!-- بارگذاری خبر چهارم -->
+    <script>
+      fetch('../pages/news/news-list.json')
+        .then(res => res.json())
+        .then(list => {
+          const container = document.getElementById('all-news-list');
+          const item = list[3];
+          const div = document.createElement('div');
+          div.className = 'app';
+          div.innerHTML = `
+            <div class="app-info">
+              <img src="${item.thumb}" alt="${item.title}">
+              <div class="app-text">
+                <div class="app-title">${item.title}</div>
+                <div class="app-subtitle">${item.summary}</div>
+              </div>
+            </div>
+            <div class="app-actions">
+              <div class="app-date">${item.date}</div>
+              <a href="cards/${item.file}">
+                <button class="button">جزئیات</button>
+              </a>
+            </div>
+          `;
+          container.appendChild(div);
+        });
+    </script>
+
+    <!-- بارگذاری خبر پنجم -->
+    <script>
+      fetch('../pages/news/news-list.json')
+        .then(res => res.json())
+        .then(list => {
+          const container = document.getElementById('all-news-list');
+          const item = list[4];
+          const div = document.createElement('div');
+          div.className = 'app';
+          div.innerHTML = `
+            <div class="app-info">
+              <img src="${item.thumb}" alt="${item.title}">
+              <div class="app-text">
+                <div class="app-title">${item.title}</div>
+                <div class="app-subtitle">${item.summary}</div>
+              </div>
+            </div>
+            <div class="app-actions">
+              <div class="app-date">${item.date}</div>
+              <a href="cards/${item.file}">
+                <button class="button">جزئیات</button>
+              </a>
+            </div>
+          `;
+          container.appendChild(div);
+        });
+    </script>
+
+    <!-- دکمه مشاهده بیشتر در مکان درست -->
+    <div class="more-button-wrapper">
+      <a href="parts/news.html" class="button">مشاهده بیشتر</a>
+    </div>
+
+  </div> <!-- پایان container -->
 
 </body>
 </html>
